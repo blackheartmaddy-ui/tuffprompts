@@ -39,7 +39,7 @@ function TuffPrompts() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background animated-gradient-bg">
       {/* iOS Floating Sidebar */}
       <IOSSidebar />
 
