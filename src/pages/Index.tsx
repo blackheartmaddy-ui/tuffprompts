@@ -1,10 +1,14 @@
 import { useState, useMemo, useEffect } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { SoundToggle } from '@/components/SoundToggle';
 import { SearchBar } from '@/components/SearchBar';
 import { CategoryFilter } from '@/components/CategoryFilter';
 import { PromptCard } from '@/components/PromptCard';
 import { PromptModal } from '@/components/PromptModal';
+import { GlassHeroPanel } from '@/components/GlassHeroPanel';
+import { IOSSidebar } from '@/components/IOSSidebar';
+import { SoundProvider } from '@/contexts/SoundContext';
 import { prompts, type Category, type Prompt } from '@/lib/prompts-data';
 
 function TuffPrompts() {
@@ -36,42 +40,55 @@ function TuffPrompts() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* iOS Floating Sidebar */}
+      <IOSSidebar />
+
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border/50">
+      <header className="sticky top-0 z-40 bg-background/60 backdrop-blur-xl border-b border-border/30">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex-1" />
             <div className="text-center">
-              <h1 className="text-2xl font-bold text-foreground">Tuff Prompts</h1>
+              <h1 className="text-2xl font-semibold tracking-tight text-foreground opacity-0 animate-fade-in-up">
+                Tuff Prompts
+              </h1>
             </div>
-            <div className="flex-1 flex justify-end">
+            <div className="flex-1 flex justify-end gap-2">
+              <SoundToggle />
               <ThemeToggle />
             </div>
           </div>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="py-12 md:py-16">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-lg text-muted-foreground mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-            Premium prompts that actually work.
-          </p>
-          <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-            <SearchBar value={search} onChange={setSearch} />
-          </div>
+      {/* Hero with Glass Panel */}
+      <section className="py-12 md:py-20 lg:pl-20">
+        <div className="container mx-auto px-4">
+          <GlassHeroPanel previewPrompts={prompts}>
+            <div className="text-center">
+              <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-foreground mb-3 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+                Tuff Prompts
+              </h2>
+              <p className="text-lg text-muted-foreground/80 mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+                Premium prompts that actually work.
+              </p>
+              <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+                <SearchBar value={search} onChange={setSearch} />
+              </div>
+            </div>
+          </GlassHeroPanel>
         </div>
       </section>
 
       {/* Categories */}
-      <section className="border-y border-border/50 bg-secondary/20">
+      <section className="border-y border-border/30 bg-secondary/10 backdrop-blur-sm lg:pl-20">
         <div className="container mx-auto">
           <CategoryFilter selected={category} onSelect={setCategory} />
         </div>
       </section>
 
       {/* Gallery */}
-      <section className="py-8 md:py-12">
+      <section className="py-8 md:py-12 lg:pl-20">
         <div className="container mx-auto px-4">
           {filteredPrompts.length === 0 ? (
             <div className="text-center py-16">
@@ -106,7 +123,9 @@ function TuffPrompts() {
 export default function Index() {
   return (
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-      <TuffPrompts />
+      <SoundProvider>
+        <TuffPrompts />
+      </SoundProvider>
     </ThemeProvider>
   );
 }
