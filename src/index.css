@@ -81,6 +81,52 @@ All colors MUST be HSL.
   }
 }
 
+/* Animated Gradient Background */
+.animated-gradient-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-gradient-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 20%, hsla(220, 60%, 85%, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, hsla(280, 50%, 85%, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 50% at 50% 80%, hsla(200, 60%, 88%, 0.3) 0%, transparent 50%),
+    hsl(var(--background));
+  animation: gradient-shift 20s ease-in-out infinite;
+}
+
+.dark .animated-gradient-bg::before {
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 20%, hsla(220, 60%, 20%, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, hsla(280, 50%, 18%, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 50% at 50% 80%, hsla(200, 60%, 15%, 0.35) 0%, transparent 50%),
+    hsl(var(--background));
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 0%, 100% 0%, 50% 100%;
+    transform: scale(1);
+  }
+  25% {
+    background-position: 20% 20%, 80% 10%, 40% 90%;
+    transform: scale(1.02);
+  }
+  50% {
+    background-position: 10% 40%, 90% 30%, 60% 70%;
+    transform: scale(1);
+  }
+  75% {
+    background-position: 30% 10%, 70% 40%, 50% 80%;
+    transform: scale(1.01);
+  }
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
