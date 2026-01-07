@@ -9,20 +9,19 @@ interface SearchBarProps {
 export function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <div className="relative w-full max-w-md mx-auto">
-      <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+      <Search className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground/70" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search prompts..."
         className={cn(
-          'w-full h-12 pl-12 pr-4 rounded-full',
-          'bg-secondary/60 backdrop-blur-sm',
-          'border-0 outline-none',
-          'text-foreground placeholder:text-muted-foreground',
-          'transition-all duration-200',
-          'focus:bg-secondary focus:ring-2 focus:ring-primary/20',
-          'hover:bg-secondary'
+          'w-full h-14 pl-14 pr-6 rounded-full',
+          'ios-search-bar',
+          'text-foreground placeholder:text-muted-foreground/60',
+          'transition-all duration-300 ease-out',
+          'focus:ring-4 focus:ring-primary/10',
+          'focus:shadow-lg focus:shadow-primary/5'
         )}
       />
     </div>
