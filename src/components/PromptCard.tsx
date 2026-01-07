@@ -4,19 +4,22 @@ import { cn } from '@/lib/utils';
 interface PromptCardProps {
   prompt: Prompt;
   onClick: () => void;
+  index?: number;
 }
 
-export function PromptCard({ prompt, onClick }: PromptCardProps) {
+export function PromptCard({ prompt, onClick, index = 0 }: PromptCardProps) {
   return (
     <button
       onClick={onClick}
+      style={{ animationDelay: `${index * 50}ms` }}
       className={cn(
         'group relative w-full overflow-hidden rounded-2xl bg-card',
         'shadow-sm hover:shadow-xl',
         'transition-all duration-300 ease-out',
         'hover:-translate-y-1 hover:scale-[1.02]',
         'active:scale-[0.98]',
-        'text-left'
+        'text-left',
+        'opacity-0 animate-fade-in-up'
       )}
     >
       <div className="aspect-[4/3] overflow-hidden">
