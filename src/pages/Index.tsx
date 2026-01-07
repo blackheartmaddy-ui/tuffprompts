@@ -54,10 +54,12 @@ function TuffPrompts() {
       {/* Hero */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-lg text-muted-foreground mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
             Premium prompts that actually work.
           </p>
-          <SearchBar value={search} onChange={setSearch} />
+          <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <SearchBar value={search} onChange={setSearch} />
+          </div>
         </div>
       </section>
 
@@ -79,10 +81,11 @@ function TuffPrompts() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredPrompts.map((prompt) => (
+              {filteredPrompts.map((prompt, index) => (
                 <PromptCard
                   key={prompt.id}
                   prompt={prompt}
+                  index={index}
                   onClick={() => setSelectedPrompt(prompt)}
                 />
               ))}
